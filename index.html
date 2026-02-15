@@ -3,114 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页</title>
+    <title>Personal Space</title>
     <style>
-        /* 基础样式 */
+        /* 引入类似 Apple 的系统字体堆栈 */
+        :root {
+            --apple-bg: #f5f5f7;
+            --apple-text: #1d1d1f;
+            --apple-card-bg: rgba(255, 255, 255, 0.7);
+            --accent-blue: #0071e3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--apple-bg);
+            color: var(--apple-text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 导航栏 */
-        header {
+        /* 顶部导航栏 - 毛玻璃效果 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            font-size: 12px;
+            color: var(--apple-text);
+            text-decoration: none;
+            margin: 0 15px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover { opacity: 1; }
+
+        /* Hero 巨幕部分 */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 3rem 0;
-            border-bottom: 1px solid #eee;
+            padding: 0 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: #2d3436;
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            margin-bottom: 10px;
         }
 
-        .subtitle {
-            color: #636e72;
-            font-size: 1.1rem;
+        .hero p {
+            font-size: 24px;
+            color: #86868b;
+            font-weight: 400;
         }
 
         /* 内容板块 */
-        section {
-            margin: 3rem 0;
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
         }
 
-        h2 {
-            border-left: 4px solid #0984e3;
-            padding-left: 1rem;
-            color: #2d3436;
+        .section-title {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* 卡片设计 - 核心 Apple 美学 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-top: 1rem;
+            background: var(--apple-card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 链接样式 */
-        a {
-            color: #0984e3;
-            text-decoration: none;
-            transition: 0.3s;
+        .card:hover {
+            transform: scale(1.02);
         }
 
-        a:hover {
-            text-decoration: underline;
+        .card h3 {
+            font-size: 21px;
+            margin-bottom: 15px;
         }
 
-        /* 页脚 */
+        .card p {
+            color: #86868b;
+            font-size: 17px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e8e8ed;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 15px;
+            color: #515154;
+        }
+
         footer {
             text-align: center;
-            margin-top: 5rem;
-            font-size: 0.9rem;
-            color: #b2bec3;
+            padding: 50px 0;
+            color: #86868b;
+            font-size: 12px;
+            border-top: 1px solid #d2d2d7;
         }
 
-        /* 响应式适配 */
-        @media (max-width: 600px) {
-            body { padding: 1rem; }
-            h1 { font-size: 1.8rem; }
+        /* 适配移动端 */
+        @media (max-width: 734px) {
+            .hero h1 { font-size: 40px; }
+            .hero p { font-size: 19px; }
+            .section-title { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>👋 你好，我是 [你的名字]</h1>
-        <p class="subtitle">探索技术、分享生活、保持好奇</p>
-    </header>
+    <nav>
+        <a href="#">概览</a>
+        <a href="#projects">项目</a>
+        <a href="#lab">实验室</a>
+        <a href="mailto:your-email@me.com">联系</a>
+    </nav>
 
-    <section id="about">
-        <h2>关于我</h2>
-        <div class="card">
-            <p>我是一名开发者/爱好者，热衷于构建有趣的项目。目前我对网络安全和配置自动化（比如小火箭配置 🚀）比较感兴趣。</p>
+    <div class="hero">
+        <h1>你好，我是 [你的名字]</h1>
+        <p>探索者。开发者。量化爱好者。</p>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="projects">精选项目</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>量化交易系统</h3>
+                <p>基于 Pine Script v6 的订单流分析工具，捕捉市场的每一丝波动。</p>
+                <span class="tag">TradingView</span>
+            </div>
+            <div class="card">
+                <h3>Home Lab 部署</h3>
+                <p>在 ESXi 虚拟化环境下运行 Docker 容器，实现全自动化的私人云服务。</p>
+                <span class="tag">Docker / Linux</span>
+            </div>
+            <div class="card">
+                <h3>OpenClawd AI</h3>
+                <p>集成多模型 API 的智能助手，让 AI 真正服务于日常工作流。</p>
+                <span class="tag">AI / Telegram Bot</span>
+            </div>
         </div>
-    </section>
-
-    <section id="projects">
-        <h2>我的项目</h2>
-        <div class="card">
-            <ul>
-                <li><strong>个人博客：</strong> 正在建设中...</li>
-                <li><strong>Shadowrocket 配置：</strong> <a href="#">点击查看我的 Lazy Config</a></li>
-                <li><strong>GitHub 仓库：</strong> <a href="https://github.com">@YourGitHub</a></li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>联系我</h2>
-        <p>可以通过邮件联系我：<a href="mailto:hello@example.com">hello@example.com</a></p>
-    </section>
+    </div>
 
     <footer>
-        <p>&copy; 2026 [你的名字]. Built with ❤️ and Pure HTML.</p>
+        <p>Copyright © 2026 [你的名字]. 保留所有权利。</p>
     </footer>
 
 </body>
